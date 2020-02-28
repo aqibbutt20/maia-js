@@ -7,9 +7,9 @@
         document.removeEventListener("mouseout", onMouseOut);
 
         // Show the popup
-        if(isCandidateNew()){
+        // if(isCandidateNew()){
           document.getElementById("popup").style.display = "block";
-        }
+        // }
       }
 
       document.addEventListener("mouseout", onMouseOut);
@@ -42,7 +42,7 @@
         xhr.onreadystatechange = function(){
           console.log("----xhr", xhr.responseText)
         }
-        xhr.open('GET', "https://www.google.com");
+        xhr.open('GET', "localhost:3000/api/v1/users");
         xhr.send();
       }
 
