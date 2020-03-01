@@ -1,104 +1,15 @@
 <html>
   <head>
-    <script>
-      function onMouseOut(event) {
-
-        // Remove this event listener
-        document.removeEventListener("mouseout", onMouseOut);
-
-        // Show the popup
-        // if(isCandidateNew()){
-          document.getElementById("popup").style.display = "block";
-        // }
-      }
-
-      document.addEventListener("mouseout", onMouseOut);
-
-      function setCandidateEmail(email) {
-        var localStorage = window.localStorage;
-        localStorage.setItem(email, email)
-      }
-
-      function isCandidateNew() {
-        var localStorage = window.localStorage,
-          result = localStorage.getItem("email")
-        if(result !== null){
-          return false;
-        }
-        return true;
-      }
-
-      //submit button handler
-      function submitClickHandler(){
-        var localStorage = window.localStorage,
-          val = document.getElementById("email").value;
-        localStorage.setItem("email", val)
-        addUserToDataBase()
-        document.getElementById("popup").style.display = "none";
-      }
-
-      function addUserToDataBase(){
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function(){
-          console.log("----xhr", xhr.responseText)
-        }
-        xhr.open('GET', "localhost:3000/api/v1/users");
-        xhr.send();
-      }
-
-    </script>
-    <style>
-      * {
-          box-sizing: border-box;
-      }
-
-      #popup {
-          display: none;
-      }
-
-      .popup__wrapper {
-        background: rgba(0, 0, 0, .75);
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        z-index: 10;
-      }
-
-      .popup__container {
-        background: #fff;
-        font-family: Helvetica, Arial, sans-serif;
-        font-size: 18px;
-        margin: 100px auto;
-        max-width: 100%;
-        padding: 20px;
-        width: 500px;
-      }
-
-      .popup__title {
-        font-size: 26px;
-        margin-bottom: 15px;
-      }
-
-      .popup__input {
-        font-size: 26px;
-        margin-bottom: 15px;
-      }
-
-      .popup__button {
-          font-size: 26px;
-          margin-bottom: 15px;
-      }
-    </style>
+      <link rel="stylesheet" href="maia.css">
+      <script src="maia.js"> </script>
   </head>
   <body>
-    <div id="popup" class="popup__wrapper">
+    <!-- <div id="popup" class="popup__wrapper">
       <div class="popup__container">
         <h1 class="popup__title">Thank you for visiting Please enter your email below!</h1>
         <input id="email" class="popup__input" type="text" name="email" />
         <button class="popup__button" onclick="submitClickHandler()" >Submit</button>
       </div>
-    </div>
+    </div> -->
   </body>
 </html>
