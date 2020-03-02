@@ -1,16 +1,15 @@
 
-console.log("---hello")
 function onMouseOut(event) {
   // Remove this event listener
   document.removeEventListener("mouseout", onMouseOut);
 
   // Show the popup
 
-  // if(isCandidateNew()){
+  if(isCandidateNew()){
     var modalElement = document.createElement('DIV');
     modalElement.innerHTML = createModalElem();
     document.body.appendChild(modalElement);
-  // }
+  }
 }
 
 document.addEventListener("mouseout", onMouseOut);
@@ -18,9 +17,10 @@ document.addEventListener("mouseout", onMouseOut);
 //Setting candidt
 function setCandidateEmail(email) {
   var localStorage = window.localStorage;
-  localStorage.setItem(email, email)
+  localStorage.setItem("email", email)
 }
 
+//checks if candidate is new
 function isCandidateNew() {
   var localStorage = window.localStorage,
     result = localStorage.getItem("email")
@@ -32,25 +32,25 @@ function isCandidateNew() {
 
 //submit button handler
 function submitClickHandler(){
-  var localStorage = window.localStorage,
-  val = document.getElementById("email").value;
-  localStorage.setItem("email", val)
   addUserToDataBase()
-  document.getElementById("popup").style.display = "none";
 }
 
+//add users to database
 function addUserToDataBase(){
-  document.getElementById("popup").style.display = "none";
-
+  var email = document.getElementById("email").value;
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function(){
-    console.log("----xhr", xhr.responseText)
+    if(xhr.status === 200){
+      setCandidateEmail(email)
+      document.getElementById("popup").style.display = "none";
+    }
   }
-  xhr.open('POST', "localhost:3000/api/v1/users");
-  xhr.send("orem=ispum");
-
+  xhr.open('POST', "http://localhost:3000/api/v1/users" );
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhr.send(`domain=${window.location.host}&email=${email}`);
 }
 
+//returns candidate modal
 function createModalElem(){
   return '<div id="popup" class="popup__wrapper">' +
   '<div class="popup__container">' +
